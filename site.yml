@@ -1,0 +1,14 @@
+---
+- name: Deploy, configure, and populate Postgres 10
+  hosts: database_servers
+  become: true
+  gather_facts: false
+  tags:
+    - database_servers
+  roles:
+    - postgres
+
+- import_playbook: provision_app_tier.yml
+- import_playbook: provision_load_balancer_tier.yml
+
+- import_playbook: smoketest.yml

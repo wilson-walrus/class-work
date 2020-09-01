@@ -1,0 +1,10 @@
+---
+- name: testing variables
+  hosts: localhost
+  gather_facts: false
+  become: false
+  vars:
+    my_var: 42
+  tasks:
+    - debug:
+        msg: "{{ my_var }}"
