@@ -1,0 +1,4 @@
+---
+- import_playbook: in-memory-inventory.yml
+- import_playbook: tower_repos.yml
+- import_playbook: update-servers.yml

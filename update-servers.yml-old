@@ -1,0 +1,16 @@
+---
+- name: Update servers
+  hosts: all:!ungrouped
+  become: true
+  gather_facts: false
+  tasks:
+
+    - name: update packages
+      yum:
+        name: "*"
+        state: latest
+        validate_certs: no
+        disable_gpg_check:  yes
+
+    - name: reboot servers
+      reboot:

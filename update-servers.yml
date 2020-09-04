@@ -1,0 +1,26 @@
+---
+- name: Update servers
+  hosts: all:!ungrouped
+  become: true
+  gather_facts: false
+  tasks:
+
+    - name: update packages
+      yum:
+        name: "*"
+        state: latest
+        validate_certs: no
+        disable_gpg_check:  yes
+
+    - name: reboot servers
+      reboot:
+
+    - name: Wait for async OSP instance creation to complete
+      wait_for:
+        timeout: 120
+      delegate_to: localhost
+
+    - name: Change file ownership, group and permissions
+      file:
+        path: /etc/yum.repos.d/tower.repo
+        state: absent

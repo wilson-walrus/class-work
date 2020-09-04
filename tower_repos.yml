@@ -1,0 +1,13 @@
+---
+- name: Add additonal repos to systems
+  hosts: all:!ungrouped
+  become: true
+  gather_facts: false
+  tasks:
+    - name: add tower.repo to yum.repos.d
+      copy:
+        src: tower.repo
+        dest: /etc/yum.repos.d/
+        owner: root
+        group: root
+        mode: '0644'
